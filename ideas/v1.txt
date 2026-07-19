@@ -1,0 +1,21 @@
+1) Create a window
+
+2) Allow user to edit (unsaved)
+    2.0)Notes
+        2.0.1) Store changes in a double linked list(to support ctr+z, ctr, y)
+    2.1) Add 
+        2.1.1) chars to insert and position
+    2.2) Remove
+        2.2.1) start position and length
+3) Challenge
+    3.1) How to know position?
+        3.1.1) Is any solution exist which can support it?
+        3.1.2) Do i need to build a text area for my specific case?
+    3.2) How to apply save ?
+        I believed 3.2.2 is better
+        3.2.1) copy the unsaved text and write to og file destination?
+        3.2.2) apply changes from last applied node
+
+Next 
+    1) Listen to key/mouse events
+    2) search in text
