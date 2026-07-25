@@ -2,6 +2,9 @@ use crate::{interaction_medium::console_window::starter::ConsoleWindow, services
 
 mod interaction_medium;
 mod services;
+mod helpers;
+mod handlers;
+mod models;
 
 fn main(){
     let ui_renderer = UIRender::<ConsoleWindow>::new();
