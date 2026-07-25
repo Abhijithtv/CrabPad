@@ -10,6 +10,7 @@ impl CMDActions {
         match s.trim().to_lowercase().as_str() {
             "read" => Some(Self::Read),
             "write" => Some(Self::Write),
+            "exit" => Some(Self::Exit),
             _ => None,
         }
     }

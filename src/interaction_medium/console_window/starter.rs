@@ -1,4 +1,4 @@
-use crate::{handlers::cmd_handlers, interaction_medium::abstractions::starter_base, models::cmd_result_status::CMDResultStatus};
+use crate::{handlers::cmd_handler, interaction_medium::abstractions::starter_base, models::cmd_result_status::CMDResultStatus};
 
 pub struct ConsoleWindow {
 
@@ -25,9 +25,10 @@ fn read_cmds(){
     loop{
         std::io::stdin().read_line(&mut cmd_buffer).unwrap();
         let cmd: &str = cmd_buffer.trim();
-        let res = cmd_handlers::handle(cmd);
+        let res = cmd_handler::handle(cmd);
         match res.status{
             CMDResultStatus::Err => eprintln!("{}",res.message.unwrap_or("Some error occurred".to_string())),
+            CMDResultStatus::Exit => break,
             _ => {}
         } 
         cmd_buffer.clear();

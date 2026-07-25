@@ -1,6 +1,6 @@
 pub enum CMDResultStatus{
     Success,
-    Quit,
+    Exit,
     Clear,
     Err
 }
