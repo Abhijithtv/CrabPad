@@ -1,4 +1,4 @@
-use crate::{handlers::read_cmd_handler, models::{cmd_actions::CMDActions, cmd_result::CMDResult, cmd_result_status::CMDResultStatus}};
+use crate::{handlers::read_cmd_handler, managers::file_content_manager, models::{cmd_actions::CMDActions, cmd_result::CMDResult, cmd_result_status::CMDResultStatus}};
 
 pub fn handle(cmd: &str)->CMDResult{
     let action_and_extras: Option<(&str, Option<&str>)> = split_action_and_extras(cmd);
@@ -45,7 +45,7 @@ fn process_read_cmd(extras: Option<&str>) -> CMDResult{
     match res {
         Ok(res) =>{
             //todo - display in terminal
-            println!("file content - {}", res.content);
+            file_content_manager::build_content_tree(res.content);
             CMDResult::new(CMDResultStatus::Success, None)
         },
         Err(err) => CMDResult::new(CMDResultStatus::Err, Some(err)),

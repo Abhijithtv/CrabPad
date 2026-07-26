@@ -5,6 +5,7 @@ mod services;
 mod helpers;
 mod handlers;
 mod models;
+mod managers;
 
 fn main(){
     let ui_renderer = UIRender::<ConsoleWindow>::new();

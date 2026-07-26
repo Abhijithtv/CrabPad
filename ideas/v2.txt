@@ -1,0 +1,23 @@
+const CHUCK_SIZE:i32 = 20; 
+
+struct ContentNode{
+    left: Option<ContentNode>,
+    right: Option<ContentNode>,
+    content: Vec<char>
+}
+
+struct ManagerNode{
+    //left -> ManagerNode or ContentNode
+    //right -> ManagerNode or ContentNode
+    //to accomadate offset changes and logN look up
+    //left chars -> build based on user actions
+    //right chars -> build based on user actions
+}
+
+//binary tree based on the offset
+//out of scope -> tree rebalance, combining chunks with smaller size
+//replace ->
+// option1: delete + insert
+// option2: try replacing chars in already inserted chunks and imsert pending chars based on insert logic  
+//insert -> find a node with can accomadate the insert size, if not add new nodes to
+//delete -> find node and delete it
