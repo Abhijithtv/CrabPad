@@ -45,7 +45,7 @@ fn process_read_cmd(extras: Option<&str>) -> CMDResult{
     match res {
         Ok(res) =>{
             //todo - display in terminal
-            file_content_manager::build_content_tree(res.content);
+            file_content_manager::build_content_tree(&res.content);
             CMDResult::new(CMDResultStatus::Success, None)
         },
         Err(err) => CMDResult::new(CMDResultStatus::Err, Some(err)),
