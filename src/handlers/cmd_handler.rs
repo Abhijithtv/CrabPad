@@ -1,4 +1,4 @@
-use crate::{handlers::read_cmd_handler, managers::file_content_manager, models::{cmd_actions::CMDActions, cmd_result::CMDResult, cmd_result_status::CMDResultStatus}};
+use crate::{handlers::{display_cmd_handlers, read_cmd_handler}, managers::file_content_manager, models::{cmd_actions::CMDActions, cmd_result::CMDResult, cmd_result_status::CMDResultStatus}};
 
 pub fn handle(cmd: &str)->CMDResult{
     let action_and_extras: Option<(&str, Option<&str>)> = split_action_and_extras(cmd);
@@ -26,9 +26,15 @@ fn process_cmd(action:&str, extras:Option<&str>) -> CMDResult{
     return match action {
         Some(CMDActions::Read) => process_read_cmd(extras),
         Some(CMDActions::Exit) => process_exit_cmd(),
+        Some(CMDActions::Display) => process_display_cmd(),
         Some(_) => todo!(),
         None => process_unknown_cmd()   
     }
+}
+
+fn process_display_cmd() -> CMDResult {
+    display_cmd_handlers::handle_display_cmd();
+    return CMDResult::new(CMDResultStatus::Success, None);
 }
 
 fn process_exit_cmd() -> CMDResult {
