@@ -6,7 +6,8 @@ mod helpers;
 mod handlers;
 mod models;
 mod managers;
-
+mod common;
+mod constants;
 fn main(){
     let ui_renderer = UIRender::<ConsoleWindow>::new();
     ui_renderer.start();
