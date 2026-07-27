@@ -1,6 +1,6 @@
 pub struct InternalNode{
-    pub left: Box<Option<Node>>,
-    pub right: Box<Option<Node>>,
+    pub left: Option<Box<Node>>,
+    pub right: Option<Box<Node>>,
     pub left_char_count: usize,
     pub right_char_count: usize
 }
@@ -40,7 +40,7 @@ impl Node {
         }
     }
 
-    fn try_display(node: &Box<Option<Node>>, start_index:usize, len:usize){
+    fn try_display(node: &Option<Box<Node>>, start_index:usize, len:usize){
         match node.as_ref(){
             Some(node) => node.display(Some(start_index), Some(len)),
             None => {},

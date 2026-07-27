@@ -28,10 +28,9 @@ fn build_tree(l:usize, r:usize, content: &[char]) -> Option<Node> {
 fn build_internal_node(left_child: Option<Node>, right_child: Option<Node>) -> Node {
     let left_char_count = Node::try_get_count(&left_child);
     let right_char_count = Node::try_get_count(&right_child);
-
     let node = Node::Internal(InternalNode{
-        left: Box::new(left_child),
-        right: Box::new(right_child),
+        left: left_child.map(Box::new),
+        right: right_child.map(Box::new),
         left_char_count: left_char_count,
         right_char_count: right_char_count,
     });
