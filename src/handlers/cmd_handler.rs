@@ -26,14 +26,14 @@ fn process_cmd(action:&str, extras:Option<&str>) -> CMDResult{
     return match action {
         Some(CMDActions::Read) => process_read_cmd(extras),
         Some(CMDActions::Exit) => process_exit_cmd(),
-        Some(CMDActions::Display) => process_display_cmd(),
+        Some(CMDActions::Display) => process_display_cmd(extras),
         Some(_) => todo!(),
         None => process_unknown_cmd()   
     }
 }
 
-fn process_display_cmd() -> CMDResult {
-    display_cmd_handlers::handle_display_cmd();
+fn process_display_cmd(extras:Option<&str>) -> CMDResult {
+    display_cmd_handlers::handle_display_cmd(extras);
     return CMDResult::new(CMDResultStatus::Success, None);
 }
 

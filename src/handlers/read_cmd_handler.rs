@@ -8,7 +8,7 @@ pub fn handle_read_cmd(extra: Option<&str>)->Result<ReadFileResult, String>{
             return match read_res {
                 Ok(res) => {
                     file_content_manager::build_content_tree(&res);
-                    println!("Read Complete");
+                    println!("Read Complete with length - {}", res.chars().count());
                     Ok(ReadFileResult::new(path.to_string(), res))
                 },
                 std::result::Result::Err(err) => std::result::Result::Err(err),
