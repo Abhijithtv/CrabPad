@@ -4,6 +4,7 @@ pub enum CMDActions{
     Write,
     Display,
     Delete,
+    Add,
     Exit
 }
 
@@ -15,6 +16,7 @@ impl CMDActions {
             "exit" => Some(Self::Exit),
             "display" => Some(Self::Display),
             "delete" => Some(Self::Delete),
+            "add" => Some(Self::Add),
             _ => None,
         }
     }
