@@ -2,7 +2,7 @@
 
 use std::sync::{LazyLock, Mutex};
 
-use crate::{common::{tree_builder}, models::{page_content_node::Node}};
+use crate::{common::{tree_builder}, models::{page_content::page_content_node::Node}};
 
 static CONTENT_ROOT: LazyLock<Mutex<Option<Node>>> = LazyLock::new(|| Mutex::new(None));
 

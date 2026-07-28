@@ -1,4 +1,4 @@
-use crate::{constants::file_constant, models::{page_content_node::{InternalNode, LeafNode, Node}}};
+use crate::{constants::file_constant, models::page_content::{node_content_helper, page_content_node::{InternalNode, LeafNode, Node}}};
 
 pub fn build_tree_proxy(content: &[char]) -> Option<Node> {
     if content.is_empty(){
@@ -26,8 +26,8 @@ fn build_tree(l:usize, r:usize, content: &[char]) -> Option<Node> {
 }
 
 fn build_internal_node(left_child: Option<Node>, right_child: Option<Node>) -> Node {
-    let left_char_count = Node::try_get_count(&left_child);
-    let right_char_count = Node::try_get_count(&right_child);
+    let left_char_count = node_content_helper::try_get_count(&left_child);
+    let right_char_count = node_content_helper::try_get_count(&right_child);
     let node = Node::Internal(InternalNode{
         left: left_child.map(Box::new),
         right: right_child.map(Box::new),

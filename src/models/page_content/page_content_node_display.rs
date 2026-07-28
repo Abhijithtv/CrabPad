@@ -1,24 +1,14 @@
-pub struct InternalNode{
-    pub left: Option<Box<Node>>,
-    pub right: Option<Box<Node>>,
-    pub left_char_count: usize,
-    pub right_char_count: usize
-}
-
-pub struct LeafNode{
-    pub content: Vec<char>
-}
- 
-pub enum Node{
-    Internal(InternalNode),
-    Leaf(LeafNode)
-}
+use crate::models::page_content::{node_content_helper, page_content_node::Node};
 
 impl Node {
     pub fn display(&self, start_index:Option<usize>, len:Option<usize>){
         let start_index: usize = start_index.unwrap_or(0); //from 0st char
-        let len: usize = len.unwrap_or(Self::get_count(&self)); //until last char
+        let len: usize = len.unwrap_or(node_content_helper::get_count(&self)); //until last char
 
+        if node_content_helper::get_count(&self) > len{
+            println!("Please ensure length is correct")
+        }
+        
         match self {
             Node::Internal(node) => {
                 if len + start_index <= node.left_char_count{
@@ -46,17 +36,4 @@ impl Node {
             None => {},
         }
     }
-
-    pub fn try_get_count(node: &Option<Node>)-> usize{
-        return node.as_ref().map_or(0, |x| Self::get_count(x));
-    }
-
-    pub fn get_count(node: &Node) -> usize{
-        match node {
-            Node::Internal(x) => x.left_char_count + x.right_char_count,
-            Node::Leaf(x) => x.content.len(),
-        }
-    }
 }
-
-
