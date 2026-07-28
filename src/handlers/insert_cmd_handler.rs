@@ -1,6 +1,6 @@
 use std::io::{self, Write};
 
-use crate::{managers::file_content_manager};
+use crate::{common::tree_builder, managers::file_content_manager};
 
 pub fn handle_insert_cmd(extras:Option<&str>){
     match extras {
@@ -26,11 +26,19 @@ fn insert(start_index:usize, content_to_insert:&mut Vec<char>){
     let cur_root = root.take();
     match cur_root{
         Some(x) => {
-            x.add_content(start_index, content_to_insert);
+            *root = x.add_content(start_index, content_to_insert);
             println!("Added successfully");
-            io::stdout().flush().unwrap();
         }
-        None => println!("Please read a file first"),
+        None => {
+            let node = tree_builder::build_tree_proxy(content_to_insert);
+            *root = match node {
+                Some(x) => {
+                    println!("Added successfully with a new node");
+                    Some(Box::new(x))
+                },
+                None => None,
+            }
+        }
     }
 }
 
