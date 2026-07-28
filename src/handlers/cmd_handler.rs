@@ -1,4 +1,4 @@
-use crate::{handlers::{display_cmd_handlers, read_cmd_handler}, managers::file_content_manager, models::{cmd_actions::CMDActions, cmd_result::CMDResult, cmd_result_status::CMDResultStatus}};
+use crate::{handlers::{delete_cmd_handler, display_cmd_handlers, read_cmd_handler}, managers::file_content_manager, models::{cmd_actions::CMDActions, cmd_result::CMDResult, cmd_result_status::CMDResultStatus}};
 
 pub fn handle(cmd: &str)->CMDResult{
     let action_and_extras: Option<(&str, Option<&str>)> = split_action_and_extras(cmd);
@@ -27,9 +27,15 @@ fn process_cmd(action:&str, extras:Option<&str>) -> CMDResult{
         Some(CMDActions::Read) => process_read_cmd(extras),
         Some(CMDActions::Exit) => process_exit_cmd(),
         Some(CMDActions::Display) => process_display_cmd(extras),
+        Some(CMDActions::Delete) => process_delete_cmd(extras),
         Some(_) => todo!(),
         None => process_unknown_cmd()   
     }
+}
+
+fn process_delete_cmd(extras: Option<&str>) -> CMDResult {
+    delete_cmd_handler::handle_delete_cmd(extras);
+    return CMDResult::new(CMDResultStatus::Success, None);
 }
 
 fn process_display_cmd(extras:Option<&str>) -> CMDResult {

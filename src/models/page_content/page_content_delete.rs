@@ -2,8 +2,9 @@ use crate::models::page_content::{node_content_helper, page_content_node::Node};
 
 impl Node {
     pub fn delete_content(self, start_index:usize, len:usize)->Option<Box<Node>> {
-        if node_content_helper::get_count(&self) > len{
-            println!("Please ensure length is correct")
+        if node_content_helper::get_count(&self) < len{
+            println!("Please ensure length is correct");
+            return Some(Box::new(self));
         }
 
         if self.should_delete_entire_node(start_index, len){
@@ -14,7 +15,6 @@ impl Node {
             Node::Internal(mut node) => {
                 if len + start_index <= node.left_char_count{ 
                     node.left = Self::delete_content(*node.left.unwrap(), start_index, len);
-                    //todo - count
                 }
                 else if start_index >= node.left_char_count{
                     node.right = Self::delete_content(*node.right.unwrap(), start_index - node.left_char_count, len);
@@ -33,7 +33,7 @@ impl Node {
                 }
             },
             Node::Leaf(mut node) => {            
-                node.content.drain(start_index..start_index+len-1);
+                node.content.drain(start_index..start_index+len);
                 return Some(Box::new(Node::Leaf(node)));
             }
         }

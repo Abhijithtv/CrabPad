@@ -5,8 +5,9 @@ impl Node {
         let start_index: usize = start_index.unwrap_or(0); //from 0st char
         let len: usize = len.unwrap_or(node_content_helper::get_count(&self)); //until last char
 
-        if node_content_helper::get_count(&self) > len{
-            println!("Please ensure length is correct")
+        if node_content_helper::get_count(&self) < len{
+            println!("Please ensure length is correct");
+            return;
         }
         
         match self {

@@ -4,7 +4,7 @@ use std::sync::{LazyLock, Mutex};
 
 use crate::{common::{tree_builder}, models::{page_content::page_content_node::Node}};
 
-static CONTENT_ROOT: LazyLock<Mutex<Option<Node>>> = LazyLock::new(|| Mutex::new(None));
+static CONTENT_ROOT: LazyLock<Mutex<Option<Box<Node>>>> = LazyLock::new(|| Mutex::new(None));
 
 pub fn build_content_tree(content: &str){
     let chars: Vec<char> = content.chars().collect();
@@ -12,10 +12,11 @@ pub fn build_content_tree(content: &str){
     {
         //lock root
         let mut root = get_root_node();
-        *root = new_root
+        *root = new_root.map(Box::new)
     }
 }
 
-pub fn get_root_node()->std::sync::MutexGuard<'static, Option<Node>>{
+pub fn get_root_node()->std::sync::MutexGuard<'static, Option<Box<Node>>>{
     return CONTENT_ROOT.lock().unwrap();
 }
+
